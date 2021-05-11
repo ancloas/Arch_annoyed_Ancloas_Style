@@ -9,6 +9,8 @@ Brick::Brick(Vec2 start, float width, float height, Color c)
 
 void Brick::Draw(Graphics & gfx)
 {
+	if (isDestroyed)
+		return;
 	Rect.draw_solid(gfx, color);
 }
 
@@ -20,6 +22,18 @@ Rectf Brick::Get_Shrinked() const
 
 void Brick::Draw_with_padding(Graphics & gfx)
 {
+	if (isDestroyed)
+		return;
 	Rectf shrinked_Rect = Get_Shrinked();
 	shrinked_Rect.draw_solid(gfx, color);
 }
+
+void Brick::Colloides_With_Ball(Ball & ball)
+{
+	if (!isDestroyed && Rect.Overlaps_With(ball.get_Container()))
+	{
+		ball.ReboundY();
+		isDestroyed = true;
+    }
+}
+
