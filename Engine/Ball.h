@@ -8,7 +8,7 @@ class Ball
 public:
 	Ball(const Vec2 & centre, const Vec2& velocity);
 	void Update(float dt);
-	void Colloides_with_Wall(const Rectf& Wall);
+	bool Colloides_with_Wall(const Rectf& Wall);
 	void ReboundX();
 	void ReboundY();
 	void Draw(Graphics &gfx);
