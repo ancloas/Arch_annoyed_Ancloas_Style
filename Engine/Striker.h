@@ -9,9 +9,9 @@ class Striker {
 
 public:
 	Striker(const Vec2 &StartPosition, float width, float height,Vec2 velocity, Color c);
-	bool hit_ball(Ball &b);
-	void touched_wall(Rectf & wall);
-	void update(Keyboard &Kbd, float dt);
+	bool Hit_Ball(Ball &b);
+	void Touched_Wall(Rectf & wall);
+	void Update(Keyboard &Kbd, float dt);
 	void Draw(Graphics &gfx);
 private:
 	Rectf container;

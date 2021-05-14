@@ -8,7 +8,7 @@ Striker::Striker(const Vec2 & StartPosition, float width, float height, Vec2 vel
 	
 }
 
-bool Striker::hit_ball(Ball & b)
+bool Striker::Hit_Ball(Ball & b)
 {
 	if (container.Overlaps_With(b.get_Container()))
 	{
@@ -17,7 +17,7 @@ bool Striker::hit_ball(Ball & b)
 	}
 }
 
-void Striker::touched_wall(Rectf & Wall)
+void Striker::Touched_Wall(Rectf & Wall)
 {
 	if (container.right > Wall.right)
 		container.Displaced(Vec2(Wall.right - container.right, 0));
@@ -29,12 +29,16 @@ void Striker::touched_wall(Rectf & Wall)
 		container.Displaced(Vec2(Wall.bottom - container.bottom, 0));
 }
 
-void Striker::update(Keyboard & kbd, float dt)
+void Striker::Update(Keyboard & kbd, float dt)
 {
-	if (kbd.KeyIsPressed(VK_RIGHT) || kbd.KeyIsPressed(VK_LEFT))
+	if (kbd.KeyIsPressed(VK_RIGHT))
 	{
-		velocity.x = -(velocity.x);
 		container.Displaced(velocity*dt);
+	}
+	else 
+	if (kbd.KeyIsPressed(VK_LEFT))
+	{
+	container.Displaced(velocity*(-dt));
 	}
 }
 
