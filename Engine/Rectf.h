@@ -11,7 +11,7 @@ public:
 	Rectf(const Vec2 & start, float width, float height);
 	bool Overlaps_With(const Rectf& Rect);
 	void draw_solid(Graphics & gfx, Color color);
-  //void draw_hollow(Graphics &gfx, Color color, float boundary_thick);
+    void draw_hollow(Graphics &gfx, Color color, float boundary_thick);
 	void Draw_from_centre(Vec2 centre, float width, float height);
 	void Displaced(Vec2 Displacement);
 public:
