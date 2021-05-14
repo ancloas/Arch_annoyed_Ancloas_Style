@@ -23,6 +23,13 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Rectf.h"
+#include "Vec2.h"
+#include "Brick.h"
+#include "Striker.h"
+#include <vector>
+#include "Sound.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -34,6 +41,7 @@ public:
 private:
 	void ComposeFrame();
 	void UpdateModel();
+    void create_wall_of_bricks();
 	/********************************/
 	/*  User Functions              */
 	/********************************/
@@ -43,4 +51,15 @@ private:
 	/********************************/
 	/*  User Variables              */
 	/********************************/
+	Rectf Wall;
+	Ball ball;
+	const float brick_width = 60;
+	const float brick_height = 30;
+	const float wall_thickness = 10;
+	std::vector<Brick> bricks;
+	Striker striker;
+	Vec2 Brick_wall_start;
+	Brick brick;
+	FrameTimer ft;
+	Sound sound;
 };
