@@ -37,3 +37,11 @@ void Rectf::Draw_from_centre(Vec2 centre, float width, float height)
 {
 	*this=Rectf(centre.x-width/2, centre.x+width/2, centre.y-height/2, centre.y+height/2); /// check for optimization
 }
+
+void Rectf::Displaced(Vec2 displacement)
+{
+	left+= displacement.x;
+	right += displacement.x;
+	top += displacement.y;
+	bottom += displacement.y;
+}

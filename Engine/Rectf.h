@@ -13,6 +13,7 @@ public:
 	void draw_solid(Graphics & gfx, Color color);
   //void draw_hollow(Graphics &gfx, Color color, float boundary_thick);
 	void Draw_from_centre(Vec2 centre, float width, float height);
+	void Displaced(Vec2 Displacement);
 public:
 	float left;
 	float right;

@@ -153,6 +153,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SpriteCodex.h" />
+    <ClInclude Include="Striker.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +169,9 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Rectf.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="SpriteCodex.cpp" />
+    <ClCompile Include="Striker.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
