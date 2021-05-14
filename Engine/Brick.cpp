@@ -28,12 +28,14 @@ void Brick::Draw_with_padding(Graphics & gfx)
 	shrinked_Rect.draw_solid(gfx, color);
 }
 
-void Brick::Colloides_With_Ball(Ball & ball)
+bool Brick::Colloides_With_Ball(Ball & ball)
 {
-	if (!isDestroyed && Rect.Overlaps_With(ball.get_Container()))
+	if ((!isDestroyed) && Rect.Overlaps_With(ball.get_Container()))
 	{
 		ball.ReboundY();
 		isDestroyed = true;
+		return true;
     }
+	return false;
 }
 

@@ -11,7 +11,7 @@ class Brick
 	void Draw(Graphics &gfx);
 	Rectf Get_Shrinked() const; //container of the brick after applying padding
 	void Draw_with_padding(Graphics &gfx);
-	void Colloides_With_Ball(Ball &ball);
+	bool Colloides_With_Ball(Ball &ball);
 private:
 	Color color;
 	Rectf Rect;
