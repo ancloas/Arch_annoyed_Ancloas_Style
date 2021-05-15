@@ -58,6 +58,7 @@ void Game::UpdateModel()
 		{
 			//play sound dude
 			// delete the object at position later
+			break;
 		}
 	}   
 	
