@@ -62,5 +62,7 @@ private:
 	Striker striker;
 	Vec2 Brick_wall_start;
 	FrameTimer ft;
-	Sound sound;
+	Sound brick_break;
+	Sound wall_strike;
+	Sound striker_hit;
 };

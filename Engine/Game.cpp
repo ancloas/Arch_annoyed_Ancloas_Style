@@ -27,8 +27,11 @@ wnd(wnd),
 gfx(wnd),
 Wall(50, Graphics::ScreenWidth - 50, 50, Graphics::ScreenHeight - 50),
 Brick_wall_start(Wall.left, Wall.top + 20),
-ball(Vec2((Wall.left + Wall.right) / 2, (Wall.top + Wall.bottom) / 2), Vec2(100.0f, 100.0f)),
-striker(Vec2((Wall.left + Wall.right) / 2, Wall.bottom - 50), 100.0f, 50.0f, Vec2(100.0f, 0.0f), Colors::Red)
+ball(Vec2((Wall.left + Wall.right) / 2, (Wall.top + Wall.bottom) / 2), Vec2(300.0f, 300.0f)),
+striker(Vec2((Wall.left + Wall.right) / 2, Wall.bottom - 20.0f), 150.0f, 20.0f, Vec2(400.0f, 0.0f), Colors::Red),
+brick_break(L"Sounds\\arkbrick.wav"),
+striker_hit(L"Sounds\\arkpad.wav"),
+wall_strike(L"Sounds\\arkpad.wav")
 {
 	create_wall_of_bricks();
 }
@@ -50,7 +53,7 @@ void Game::UpdateModel()
 
 	if (striker.Hit_Ball(ball))
 	{
-		//play sound dude
+		striker_hit.Play();
 	}
 	for (Brick & b : bricks)
 	{
@@ -58,6 +61,7 @@ void Game::UpdateModel()
 		{
 			//play sound dude
 			// delete the object at position later
+			brick_break.Play();
 			break;
 		}
 	}   
@@ -65,6 +69,7 @@ void Game::UpdateModel()
 	if(ball.Colloides_with_Wall(Wall))
 	{ 
 	   //play sound
+		wall_strike.Play();
 	}
 	striker.Touched_Wall(Wall);//bounding striker to wall 
 	

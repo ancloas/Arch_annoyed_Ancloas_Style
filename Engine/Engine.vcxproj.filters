@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Media">
+      <UniqueIdentifier>{136fd4d8-6289-493f-bb7b-a5f74efa2d08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -140,5 +143,13 @@
     <Image Include="Chili.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sounds\arkbrick.wav">
+      <Filter>Media</Filter>
+    </Media>
+    <Media Include="Sounds\arkpad.wav">
+      <Filter>Media</Filter>
+    </Media>
   </ItemGroup>
 </Project>
