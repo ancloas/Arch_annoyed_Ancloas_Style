@@ -67,3 +67,22 @@ Rectf Ball::get_Container() const
 	a.Draw_from_centre(centre, radius * 2, radius * 2);
 	return a;
 }
+
+const Vec2 & Ball::Peek_Centre() const
+{
+	return centre;
+}
+
+void Ball::displaceX(const float & dx)
+{
+	centre.x += dx;
+}
+void Ball::displaceY(const float &dy)
+{
+	centre.y += dy;
+}
+
+const Vec2 & Ball::Peek_Velocity() const
+{
+	return velocity;
+}

@@ -13,6 +13,11 @@ public:
 	void ReboundY();
 	void Draw(Graphics &gfx);
 	Rectf get_Container() const;
+	const Vec2& Peek_Velocity() const;
+	const Vec2& Peek_Centre() const;
+	void displaceX(const float & dx);
+	void displaceY(const float & dy);
+
 private:
 	Vec2 centre;
 	Vec2 velocity;
