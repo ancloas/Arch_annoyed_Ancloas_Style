@@ -28,8 +28,7 @@ gfx(wnd),
 Wall(50, Graphics::ScreenWidth - 50, 50, Graphics::ScreenHeight - 50),
 Brick_wall_start(Wall.left, Wall.top + 20),
 ball(Vec2((Wall.left + Wall.right) / 2, (Wall.top + Wall.bottom) / 2), Vec2(100.0f, 100.0f)),
-striker(Vec2((Wall.left + Wall.right) / 2, Wall.bottom - 50), 100.0f, 50.0f, Vec2(100.0f, 0.0f), Colors::Red),
-brick(Vec2(100, 300), 100, 60, Colors::Blue)
+striker(Vec2((Wall.left + Wall.right) / 2, Wall.bottom - 50), 100.0f, 50.0f, Vec2(100.0f, 0.0f), Colors::Red)
 {
 	create_wall_of_bricks();
 }
@@ -61,10 +60,7 @@ void Game::UpdateModel()
 			// delete the object at position later
 		}
 	}   
-	if (brick.Colloides_With_Ball(ball))
-	{
-		//sdfsdfs
-	}
+	
 	if(ball.Colloides_with_Wall(Wall))
 	{ 
 	   //play sound
@@ -103,5 +99,4 @@ void Game::ComposeFrame()
 	striker.Draw(gfx);
 	
 	//test brick
-	brick.Draw_with_padding(gfx);
  }

@@ -54,14 +54,13 @@ private:
 	Rectf Wall;
 	Ball ball;
 	const float wall_thickness = 10;
-	const float num_of_bricks_in_row = 30;
+	const float num_of_bricks_in_row = 10;
 	const float num_of_bricks_in_cols = 5;
 	float brick_height;
 	float brick_width;
 	std::vector<Brick> bricks;
 	Striker striker;
 	Vec2 Brick_wall_start;
-	Brick brick;
 	FrameTimer ft;
 	Sound sound;
 };
