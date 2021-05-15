@@ -10,9 +10,41 @@ Striker::Striker(const Vec2 & StartPosition, float width, float height, Vec2 vel
 
 bool Striker::Hit_Ball(Ball & b)
 {
-	if (container.Overlaps_With(b.get_Container()))
+	const Rectf &ball_Rect = b.get_Container();
+	const Vec2 &ball_velocity = b.Peek_Velocity();
+	const Vec2 &ball_centre = b.Peek_Centre();
+	 //calculating y-coordinate of intersection point of ball with left boundary of striker
+	if (container.Overlaps_With(ball_Rect))
 	{
-		b.ReboundY();
+		float y_left_boundary = ball_centre.y - ((ball_Rect.right - container.left)*ball_velocity.y / (ball_velocity.x));
+
+		//calculating y-coordinate of intersection point of ball with right boundary
+		float y_right_boundary = ball_centre.y - (ball_Rect.left - container.right)*ball_velocity.y / ball_velocity.x;
+
+		//calculating x-coordinate of intersection point of ball  with top boundary
+		float x_top_boundary = ball_centre.x - (ball_Rect.bottom - container.top)*ball_velocity.x / ball_velocity.y;
+
+		if (ball_velocity.y > 0 && x_top_boundary > container.left && x_top_boundary < container.right)
+		{
+			b.ReboundY();
+			b.displaceY(container.top - ball_Rect.bottom);
+			b.displaceX(x_top_boundary - ball_centre.x);
+		}
+		else
+		{
+			if (ball_velocity.x > 0 && (y_left_boundary > container.top) && (y_left_boundary < container.bottom))
+			{
+				b.ReboundX();
+				b.displaceX(container.left - ball_Rect.right);
+				b.displaceY(y_left_boundary - ball_centre.y);
+			}
+			else if (ball_velocity.x < 0 && (y_right_boundary > container.top) && (y_right_boundary < container.bottom))
+			{
+				b.ReboundX();
+				b.displaceX(container.right - ball_Rect.left);
+				b.displaceY(y_right_boundary - ball_centre.y);
+			}
+		}
 		return true;
 	}
 	return false;
