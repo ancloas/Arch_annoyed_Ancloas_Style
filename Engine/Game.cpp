@@ -1,10 +1,10 @@
-/****************************************************************************************** 
- *	Chili DirectX Framework Version 16.07.20											  *	
+/******************************************************************************************
+ *	Chili DirectX Framework Version 16.07.20											  *
  *	Game.cpp																			  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
- *																						  *
+ *																																															  *
  *	The Chili DirectX Framework is free software: you can redistribute it and/or modify	  *
  *	it under the terms of the GNU General Public License as published by				  *
  *	the Free Software Foundation, either version 3 of the License, or					  *
@@ -21,15 +21,15 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
-	:
-	wnd( wnd ),
-	gfx( wnd ),
-	Wall(50,Graphics::ScreenWidth-50,50,Graphics::ScreenHeight-50),
-	Brick_wall_start(Wall.left,Wall.top+20),
-	ball(Vec2((Wall.left+Wall.right)/2, (Wall.top+Wall.bottom)/2),Vec2(100.0f,100.0f)),
-	striker(Vec2((Wall.left + Wall.right) / 2, Wall.bottom-50), 100.0f, 50.0f, Vec2(100.0f, 0.0f), Colors:: Red),
-	brick(Vec2(100,300),100,60,Colors::Blue)
+Game::Game(MainWindow & wnd)
+:
+wnd(wnd),
+gfx(wnd),
+Wall(50, Graphics::ScreenWidth - 50, 50, Graphics::ScreenHeight - 50),
+Brick_wall_start(Wall.left, Wall.top + 20),
+ball(Vec2((Wall.left + Wall.right) / 2, (Wall.top + Wall.bottom) / 2), Vec2(100.0f, 100.0f)),
+striker(Vec2((Wall.left + Wall.right) / 2, Wall.bottom - 50), 100.0f, 50.0f, Vec2(100.0f, 0.0f), Colors::Red),
+brick(Vec2(100, 300), 100, 60, Colors::Blue)
 {
 	create_wall_of_bricks();
 }
@@ -76,13 +76,12 @@ void Game::UpdateModel()
 void Game::create_wall_of_bricks()
 {
 	//brick width
-	int bricks_in_row = (Wall.right - Wall.left) / brick_width;   
-	int bricks_in_col = ((Wall.bottom - Wall.top) * 30 / 100) / brick_height;  //30% of height will have bricks
+	brick_width = (Wall.right - Wall.left) / num_of_bricks_in_row;
+	brick_height = ((Wall.bottom - Wall.top) * 30 / 100) / num_of_bricks_in_cols;
 	
-	
-	for (int i = 0; i < bricks_in_col; i++)
+	for (int i = 0; i < num_of_bricks_in_cols; i++)
 	{
-		for (int j = 0 ; j< bricks_in_row; j++)
+		for (int j = 0 ; j< num_of_bricks_in_row; j++)
 		{//push_back new brick object
 			Color c;
 			if (i % 2 == 0)

@@ -15,6 +15,7 @@ bool Striker::Hit_Ball(Ball & b)
 		b.ReboundY();
 		return true;
 	}
+	return false;
 }
 
 void Striker::Touched_Wall(Rectf & Wall)

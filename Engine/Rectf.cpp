@@ -30,19 +30,19 @@ bool Rectf::Overlaps_With(const Rectf & Rect)
 
 void Rectf::draw_solid(Graphics & gfx, Color color)
 {
-	gfx.DrawRect(left, top, right, bottom, color);
+	gfx.DrawRect(int(left),int(top), int(right), int(bottom), color);
 }
 
 void Rectf::draw_hollow(Graphics & gfx, Color color, float boundary_thick)
 {
 	//draw top boundary
-	gfx.DrawRect(left, top, right, top - boundary_thick, color);
+	gfx.DrawRect(int(left), int(top), int(right), int(top - boundary_thick), color);
 	//draw bottom boundary
-	gfx.DrawRect(left, bottom, right, bottom + boundary_thick, color);
+	gfx.DrawRect(int(left), int(bottom), int(right), int(bottom + boundary_thick), color);
 	//draw left boundary
-	gfx.DrawRect(left, top, left-boundary_thick, bottom, color);
+	gfx.DrawRect(int(left), int(top), int(left-boundary_thick), int(bottom), color);
 	//draw right boundary
-	gfx.DrawRect(right + boundary_thick, top, right, bottom, color);
+	gfx.DrawRect(int(right) + int(boundary_thick), int(top), int(right), int(bottom), color);
 }
 
 void Rectf::Draw_from_centre(Vec2 centre, float width, float height)

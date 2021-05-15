@@ -53,9 +53,11 @@ private:
 	/********************************/
 	Rectf Wall;
 	Ball ball;
-	const float brick_width = 60;
-	const float brick_height = 30;
 	const float wall_thickness = 10;
+	const float num_of_bricks_in_row = 30;
+	const float num_of_bricks_in_cols = 5;
+	float brick_height;
+	float brick_width;
 	std::vector<Brick> bricks;
 	Striker striker;
 	Vec2 Brick_wall_start;
