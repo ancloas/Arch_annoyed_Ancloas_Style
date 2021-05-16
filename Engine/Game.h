@@ -65,4 +65,6 @@ private:
 	Sound brick_break;
 	Sound wall_strike;
 	Sound striker_hit;
+	int Life;
+	bool gameover = false;
 };

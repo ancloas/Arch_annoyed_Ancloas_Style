@@ -37,12 +37,6 @@ bool Ball::Colloides_with_Wall(const Rectf & Wall)
 		ReboundY();
 		colloide = true;
 	}
-	if (container.bottom > Wall.bottom)
-	{
-		centre.y -= container.bottom - Wall.bottom;
-		ReboundY();
-		colloide = true;
-	}
 	return colloide;
 }
 
