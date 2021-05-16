@@ -77,6 +77,15 @@ void Striker::Update(Keyboard & kbd, float dt)
 
 void Striker::Draw(Graphics & gfx)
 {
-	container.draw_solid(gfx,color);
+	//width of wing
+	float width_of_wings = (container.right - container.left) / 10;
+	//Draw left wing
+	gfx.DrawRect(container.left, container.top, container.left + width_of_wings, container.bottom, Colors::Magenta);
+	//Draw centre striker
+	gfx.DrawRect(container.left+ width_of_wings+1, container.top, container.right-width_of_wings, container.bottom, color);
+	
+	//Draw right wing
+	gfx.DrawRect( container.right-width_of_wings+1,container.top, container.right, container.bottom, Colors::Magenta);
+
 }
 
