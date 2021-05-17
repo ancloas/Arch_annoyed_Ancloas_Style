@@ -57,3 +57,9 @@ void Rectf::Displaced(Vec2 displacement)
 	top += displacement.y;
 	bottom += displacement.y;
 }
+
+const Vec2 Rectf::Get_Centre() const
+{
+	Vec2 centre((left + right) / 2, (top + bottom) / 2);
+	return centre;
+}

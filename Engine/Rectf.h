@@ -14,6 +14,7 @@ public:
     void draw_hollow(Graphics &gfx, Color color, float boundary_thick);
 	void Draw_from_centre(Vec2 centre, float width, float height);
 	void Displaced(Vec2 Displacement);
+	const Vec2 Get_Centre() const;
 public:
 	float left;
 	float right;
