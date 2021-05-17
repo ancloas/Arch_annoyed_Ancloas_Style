@@ -13,7 +13,7 @@ public:
 	void Touched_Wall(Rectf & wall);
 	void Update(Keyboard &Kbd, float dt);
 	void Draw(Graphics &gfx);
-	void Displace(float dx);
+	void Recentre(float dx);
 	Rectf Get_Container();
 private:
 	Vec2 centre;

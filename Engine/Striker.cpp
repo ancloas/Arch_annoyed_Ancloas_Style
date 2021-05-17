@@ -86,17 +86,17 @@ void Striker::Draw(Graphics & gfx)
 	//width of wing
 	float width_of_wings = (container.right - container.left) / 10;
 	//Draw left wing
-	gfx.DrawRect(container.left, container.top, container.left + width_of_wings, container.bottom, Colors::Magenta);
+	gfx.DrawRect(int(container.left), int(container.top), int(container.left + width_of_wings), int(container.bottom), Colors::Magenta);
 	//Draw centre striker
-	gfx.DrawRect(container.left+ width_of_wings+1, container.top, container.right-width_of_wings, container.bottom, color);
+	gfx.DrawRect(int(container.left+ width_of_wings+1), int(container.top), int(container.right-width_of_wings), (int)container.bottom, color);
 	
 	//Draw right wing
-	gfx.DrawRect( container.right-width_of_wings+1,container.top, container.right, container.bottom, Colors::Magenta);
+	gfx.DrawRect( int(container.right-width_of_wings+1),int(container.top), int(container.right), int(container.bottom), Colors::Magenta);
 
 }
-void Striker::Displace(float x)
+void Striker::Recentre(float x)
 {
-  
+	centre.x = x;
 }
 
 Rectf Striker::Get_Container()
