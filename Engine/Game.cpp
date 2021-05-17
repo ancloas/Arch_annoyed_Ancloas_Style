@@ -71,41 +71,54 @@ void Game::UpdateModel(float dt)
 	}
 	else
 	{
-		striker.Update(wnd.kbd, dt);
-		ball.Update(dt);
+		if (Life < 0)
+			gameover = true;
+		if (!gameover)
+		{
+			striker.Update(wnd.kbd, dt);
+			ball.Update(dt);
 
-		if (striker.Hit_Ball(ball))
-		{
-			striker_hit.Play();
-		}
-		for (Brick & b : bricks)
-		{
-			if (b.Colloides_With_Ball(ball))
+			if (striker.Hit_Ball(ball))
 			{
-				//play sound dude
-				// delete the object at position later
-				brick_break.Play();
-				break;
+				striker_hit.Play();
 			}
-		}
+			for (Brick & b : bricks)
+			{
+				if (b.Colloides_With_Ball(ball))
+				{
+					//play sound dude
+					// delete the object at position later
+					brick_break.Play();
+					break;
+				}
+			}
 
-		if (ball.Colloides_with_Wall(Wall))
+			if (ball.Colloides_with_Wall(Wall))
+			{
+				//play sound
+				wall_strike.Play();
+			}
+			striker.Touched_Wall(Wall);//bounding striker to wall 
+		}
+	else
 		{
-			//play sound
-			wall_strike.Play();
-		}
-		striker.Touched_Wall(Wall);//bounding striker to wall 
-
-	}
+		//asked to press enter to play again
+			if (wnd.kbd.KeyIsPressed(VK_RETURN))
+			{
+				ball.Suspend_Ball(Wall.Get_Centre());
+				ball.Accelarate(Vec2(0.0f, 300.0f));
+				striker.Recentre(Wall.Get_Centre().x);
+				Life = 3;
+			}
+	    }
+    }
 }
 
 void Game::create_wall_of_bricks()
 {
-	if (Life < 0)
-		gameover = true;
+	
 	//brick width
-	if (!gameover)
-	{
+	
 		brick_width = (Wall.right - Wall.left) / num_of_bricks_in_row;
 		brick_height = ((Wall.bottom - Wall.top) * 30 / 100) / num_of_bricks_in_cols;
 
@@ -122,16 +135,6 @@ void Game::create_wall_of_bricks()
 				bricks.push_back(Brick(Brick_wall_start + Vec2(j*brick_width, i*brick_height), brick_width, brick_height, c));
 			}
 		}
-	}
-	else {
-		//asked to press enter to play again
-		if (wnd.kbd.KeyIsPressed(VK_RETURN))
-		{
-			ball.Suspend_Ball(Wall.Get_Centre());
-			ball.Accelarate(Vec2(0.0f, 300.0f));
-			striker.Recentre(Wall.Get_Centre().x);
-		}
-	}
 }
 
 void Game::ComposeFrame()
