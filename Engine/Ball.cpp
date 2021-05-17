@@ -103,3 +103,8 @@ const bool& Ball::Did_Hit_Floor()
 {
 	return hit_floor;
 }
+
+void Ball::Add_Velocity(Vec2& incr_vel)
+{
+	velocity += incr_vel;
+}

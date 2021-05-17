@@ -16,6 +16,7 @@ public:
 	const Vec2& Peek_Velocity() const;
 	void Suspend_Ball(const Vec2& Position);
 	const bool & Did_Hit_Floor();
+	void Add_Velocity(Vec2 & incr_vel);
 	const Vec2& Peek_Centre() const;
 	void displaceX(const float & dx);
 	void displaceY(const float & dy);
