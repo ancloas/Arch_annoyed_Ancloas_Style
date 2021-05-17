@@ -24,18 +24,24 @@ bool Ball::Colloides_with_Wall(const Rectf & Wall)
 		colloide= true;
 
 	}
-	if (container.left < Wall.left)
+	if (container.left <= Wall.left)
 	{
 		centre.x +=  Wall.left - container.left;
 		ReboundX();
 		colloide = true;
 
 	}
-	if (container.top < Wall.top)
+	if (container.top <= Wall.top)
 	{
 		centre.y += Wall.top - container.top;
 		ReboundY();
 		colloide = true;
+	}
+
+	if (container.bottom >= Wall.bottom)
+	{
+		hit_floor = true;
+		Suspend_Ball(Wall.Get_Centre());
 	}
 	return colloide;
 }
@@ -76,7 +82,24 @@ void Ball::displaceY(const float &dy)
 	centre.y += dy;
 }
 
+void Ball::Accelarate(const Vec2 & vel)
+{
+	velocity = vel;
+	hit_floor = false;
+}
+
 const Vec2 & Ball::Peek_Velocity() const
 {
 	return velocity;
+}
+
+void Ball::Suspend_Ball(const Vec2 &Position)
+{
+	velocity.x = 0;
+	velocity.y = 0;
+	centre = Position;
+}
+const bool& Ball::Did_Hit_Floor()
+{
+	return hit_floor;
 }
