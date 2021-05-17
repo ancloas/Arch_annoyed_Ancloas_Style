@@ -32,20 +32,23 @@ bool Striker::Hit_Ball(Ball & b)
 			b.ReboundY();
 			b.displaceY(container.top - ball_Rect.bottom);
 			b.displaceX(x_top_boundary - ball_centre.x);
+			b.Add_Velocity(velocity*movement*0.25);//add velocit in x direction
 		}
 		else
 		{
-			if (ball_velocity.x > 0 && (y_left_boundary > container.top) && (y_left_boundary < container.bottom))
+			if (ball_velocity.x - velocity.x*movement> 0 && (y_left_boundary > container.top) && (y_left_boundary < container.bottom))
 			{
 				b.ReboundX();
 				b.displaceX(container.left - ball_Rect.right);
 				b.displaceY(y_left_boundary - ball_centre.y);
+				b.Add_Velocity(velocity*movement);
 			}
-			else if (ball_velocity.x < 0 && (y_right_boundary > container.top) && (y_right_boundary < container.bottom))
+			else if (ball_velocity.x - velocity.x*movement < 0 && (y_right_boundary > container.top) && (y_right_boundary < container.bottom))
 			{
 				b.ReboundX();
 				b.displaceX(container.right - ball_Rect.left);
 				b.displaceY(y_right_boundary - ball_centre.y);
+				b.Add_Velocity(velocity*movement);
 			}
 		}
 		return true;
@@ -57,11 +60,11 @@ void Striker::Touched_Wall(Rectf & Wall)
 {
 	Rectf container = Get_Container();
 	if (container.right > Wall.right)
-		container.Displaced(Vec2(Wall.right - container.right, 0));
+		centre.x += Wall.right - container.right;
 	if (container.left < Wall.left)
-		container.Displaced(Vec2(Wall.left - container.left, 0));
+		centre.x += Wall.left - container.left;
 	if (container.top < Wall.top)
-		container.Displaced(Vec2(Wall.top - container.top, 0));
+		centre.y += Wall.top - container.top;
 	if (container.bottom > Wall.bottom)
 		container.Displaced(Vec2(Wall.bottom - container.bottom, 0));
 }
@@ -69,14 +72,17 @@ void Striker::Touched_Wall(Rectf & Wall)
 void Striker::Update(Keyboard & kbd, float dt)
 {
 	if (kbd.KeyIsPressed(VK_RIGHT))
-	{
-		centre += velocity * dt;
-	}
+		movement = right;
 	else 
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-		centre += velocity * (-dt);
+		movement = left;
 	}
+	else
+	{
+		movement = rest;
+	}
+	centre += velocity * dt* movement;
 }
 
 void Striker::Draw(Graphics & gfx)

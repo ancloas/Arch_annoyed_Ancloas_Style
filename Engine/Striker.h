@@ -21,4 +21,6 @@ private:
 	float height;
 	Vec2 velocity;
 	Color color;
+	enum Direction { left = -1, rest, right };
+	Direction movement=rest;
 };
