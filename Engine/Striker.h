@@ -8,13 +8,17 @@
 class Striker {
 
 public:
-	Striker(const Vec2 &StartPosition, float width, float height,Vec2 velocity, Color c);
+	Striker(const Vec2 &Centre, float width, float height,Vec2 velocity, Color c);
 	bool Hit_Ball(Ball &b);
 	void Touched_Wall(Rectf & wall);
 	void Update(Keyboard &Kbd, float dt);
 	void Draw(Graphics &gfx);
+	void Displace(float dx);
+	Rectf Get_Container();
 private:
-	Rectf container;
+	Vec2 centre;
+	float width;
+	float height;
 	Vec2 velocity;
 	Color color;
 };

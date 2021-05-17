@@ -40,7 +40,7 @@ public:
 	void Go();
 private:
 	void ComposeFrame();
-	void UpdateModel();
+	void UpdateModel(float dt);
     void create_wall_of_bricks();
 	/********************************/
 	/*  User Functions              */

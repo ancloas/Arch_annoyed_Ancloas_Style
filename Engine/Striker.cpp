@@ -1,9 +1,11 @@
 #include "Striker.h"
 
-Striker::Striker(const Vec2 & StartPosition, float width, float height, Vec2 velocity, Color c)
-	:container(StartPosition, width, height),
+Striker::Striker(const Vec2 & Centre, float width, float height, Vec2 velocity, Color c)
+	:centre(Centre),
 	velocity(velocity),
-	color(c)
+	color(c),
+	width(width),
+	height(height)
 {
 	
 }
@@ -13,6 +15,7 @@ bool Striker::Hit_Ball(Ball & b)
 	const Rectf &ball_Rect = b.get_Container();
 	const Vec2 &ball_velocity = b.Peek_Velocity();
 	const Vec2 &ball_centre = b.Peek_Centre();
+	Rectf container = Get_Container();
 	 //calculating y-coordinate of intersection point of ball with left boundary of striker
 	if (container.Overlaps_With(ball_Rect))
 	{
@@ -52,6 +55,7 @@ bool Striker::Hit_Ball(Ball & b)
 
 void Striker::Touched_Wall(Rectf & Wall)
 {
+	Rectf container = Get_Container();
 	if (container.right > Wall.right)
 		container.Displaced(Vec2(Wall.right - container.right, 0));
 	if (container.left < Wall.left)
@@ -66,17 +70,19 @@ void Striker::Update(Keyboard & kbd, float dt)
 {
 	if (kbd.KeyIsPressed(VK_RIGHT))
 	{
-		container.Displaced(velocity*dt);
+		centre += velocity * dt;
 	}
 	else 
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-	container.Displaced(velocity*(-dt));
+		centre += velocity * (-dt);
 	}
 }
 
 void Striker::Draw(Graphics & gfx)
 {
+	Rectf container = Get_Container();
+
 	//width of wing
 	float width_of_wings = (container.right - container.left) / 10;
 	//Draw left wing
@@ -88,4 +94,14 @@ void Striker::Draw(Graphics & gfx)
 	gfx.DrawRect( container.right-width_of_wings+1,container.top, container.right, container.bottom, Colors::Magenta);
 
 }
+void Striker::Displace(float x)
+{
+  
+}
 
+Rectf Striker::Get_Container()
+{
+	Rectf R=  Rectf();
+	R.Draw_from_centre(centre, width, height);
+	return R;
+}

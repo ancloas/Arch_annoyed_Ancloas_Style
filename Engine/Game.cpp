@@ -20,6 +20,8 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include <Windows.h>
+
 
 Game::Game(MainWindow & wnd)
 :
@@ -39,14 +41,29 @@ wall_strike(L"Sounds\\arkpad.wav")
 void Game::Go()
 {
 	gfx.BeginFrame();	
-	UpdateModel();
+	float elapsedtime;//assingning elapsedtime variable
+	if (ball.Did_Hit_Floor())
+	{
+		ball.Accelarate(Vec2(0,300.0f));
+		Sleep(5000); //put to sleep for 5 secs
+		elapsedtime = ft.Mark() - 5000;  //remove the time in sleep
+		Life--; // Life decrement
+	}
+	else {
+		elapsedtime = ft.Mark();
+	}
+	while (elapsedtime > 0.0f)
+	{
+		float dt = std::min(elapsedtime, 0.0025f);
+		UpdateModel(dt);
+		elapsedtime -= dt;
+	}
 	ComposeFrame();
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(float dt)
 {
-	float dt=ft.Mark();
 
 	striker.Update(wnd.kbd, dt);
 	ball.Update(dt);
@@ -77,23 +94,37 @@ void Game::UpdateModel()
 
 void Game::create_wall_of_bricks()
 {
+	if (Life < 0)
+		gameover = true;
 	//brick width
-	brick_width = (Wall.right - Wall.left) / num_of_bricks_in_row;
-	brick_height = ((Wall.bottom - Wall.top) * 30 / 100) / num_of_bricks_in_cols;
-	
-	for (int i = 0; i < num_of_bricks_in_cols; i++)
+	if (!gameover)
 	{
-		for (int j = 0 ; j< num_of_bricks_in_row; j++)
-		{//push_back new brick object
-			Color c;
-			if (i % 2 == 0)
-			{
-				c = Colors::Green;
+		brick_width = (Wall.right - Wall.left) / num_of_bricks_in_row;
+		brick_height = ((Wall.bottom - Wall.top) * 30 / 100) / num_of_bricks_in_cols;
+
+		for (int i = 0; i < num_of_bricks_in_cols; i++)
+		{
+			for (int j = 0; j < num_of_bricks_in_row; j++)
+			{//push_back new brick object
+				Color c;
+				if (i % 2 == 0)
+				{
+					c = Colors::Green;
+				}
+				else c = Colors::Yellow;
+				bricks.push_back(Brick(Brick_wall_start + Vec2(j*brick_width, i*brick_height), brick_width, brick_height, c));
 			}
-			else c = Colors::Yellow;
-			bricks.push_back(Brick(Brick_wall_start + Vec2(j*brick_width, i*brick_height), brick_width, brick_height, c));
 		}
 	}
+	else {
+		//asked to press enter to play again
+		if (wnd.kbd.KeyIsPressed(VK_RETURN))
+		{
+			ball.Suspend_Ball(Wall.Get_Centre());
+			ball.Accelarate(Vec2(0.0f, 300.0f));
+
+			striker(Vec2((Wall.left + Wall.right) / 2, Wall.bottom - 20.0f), 150.0f, 20.0f, Vec2(400.0f, 0.0f), Colors::Red)
+		}
 }
 
 void Game::ComposeFrame()
