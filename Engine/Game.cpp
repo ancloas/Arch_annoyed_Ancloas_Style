@@ -108,7 +108,9 @@ void Game::UpdateModel(float dt)
 				ball.Suspend_Ball(Wall.Get_Centre());
 				ball.Accelarate(Vec2(0.0f, 300.0f));
 				striker.Recentre(Wall.Get_Centre().x);
+				create_wall_of_bricks();
 				Life = 3;
+				gameover = false;
 			}
 	    }
     }
@@ -121,7 +123,8 @@ void Game::create_wall_of_bricks()
 	
 		brick_width = (Wall.right - Wall.left) / num_of_bricks_in_row;
 		brick_height = ((Wall.bottom - Wall.top) * 30 / 100) / num_of_bricks_in_cols;
-
+		if(!bricks.empty())  //delete existing bricks
+		bricks.clear();
 		for (int i = 0; i < num_of_bricks_in_cols; i++)
 		{
 			for (int j = 0; j < num_of_bricks_in_row; j++)
