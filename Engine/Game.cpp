@@ -21,6 +21,7 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include <Windows.h>
+#include "Screen.h"
 
 
 Game::Game(MainWindow & wnd)
@@ -64,32 +65,38 @@ void Game::Go()
 
 void Game::UpdateModel(float dt)
 {
-
-	striker.Update(wnd.kbd, dt);
-	ball.Update(dt);
-
-	if (striker.Hit_Ball(ball))
+	if (!gamestart)
 	{
-		striker_hit.Play();
+		gamestart = wnd.kbd.KeyIsPressed(VK_RETURN);
 	}
-	for (Brick & b : bricks)
+	else
 	{
-		if (b.Colloides_With_Ball(ball))
+		striker.Update(wnd.kbd, dt);
+		ball.Update(dt);
+
+		if (striker.Hit_Ball(ball))
 		{
-			//play sound dude
-			// delete the object at position later
-			brick_break.Play();
-			break;
+			striker_hit.Play();
 		}
-	}   
-	
-	if(ball.Colloides_with_Wall(Wall))
-	{ 
-	   //play sound
-		wall_strike.Play();
+		for (Brick & b : bricks)
+		{
+			if (b.Colloides_With_Ball(ball))
+			{
+				//play sound dude
+				// delete the object at position later
+				brick_break.Play();
+				break;
+			}
+		}
+
+		if (ball.Colloides_with_Wall(Wall))
+		{
+			//play sound
+			wall_strike.Play();
+		}
+		striker.Touched_Wall(Wall);//bounding striker to wall 
+
 	}
-	striker.Touched_Wall(Wall);//bounding striker to wall 
-	
 }
 
 void Game::create_wall_of_bricks()
@@ -122,13 +129,21 @@ void Game::create_wall_of_bricks()
 		{
 			ball.Suspend_Ball(Wall.Get_Centre());
 			ball.Accelarate(Vec2(0.0f, 300.0f));
-
-			striker(Vec2((Wall.left + Wall.right) / 2, Wall.bottom - 20.0f), 150.0f, 20.0f, Vec2(400.0f, 0.0f), Colors::Red)
+			striker.Recentre(Wall.Get_Centre().x);
 		}
+	}
 }
 
 void Game::ComposeFrame()
 {
+	if (!gamestart)
+	{
+		draw_title_screen(20, 20, gfx);
+		return;
+    }
+
+	if (gameover)
+		draw_game_over(300,300,gfx);
 	ball.Draw(gfx);
 	for (Brick b : bricks)
 		b.Draw_with_padding(gfx);

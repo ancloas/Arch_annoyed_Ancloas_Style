@@ -67,4 +67,5 @@ private:
 	Sound striker_hit;
 	int Life;
 	bool gameover = false;
+	bool gamestart = false;
 };
